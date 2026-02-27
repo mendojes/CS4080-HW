@@ -6,7 +6,7 @@ class Interpreter implements Expr.Visitor<Object>,
         Stmt.Visitor<Void> {
 
   private Environment environment = new Environment();
-
+  private static Object uninitialized = new Object();
 
   @Override
   public Object visitLiteralExpr(Expr.Literal expr) {
@@ -31,9 +31,13 @@ class Interpreter implements Expr.Visitor<Object>,
 
   @Override
   public Object visitVariableExpr(Expr.Variable expr) {
-    return environment.get(expr.name);
+    Object value = environment.get(expr.name);
+    if (value == uninitialized) {
+      throw new RuntimeError(expr.name,
+              "Variable must be initialized before use.");
+    }
+    return value;
   }
-
   private void checkNumberOperand(Token operator, Object operand) {
     if (operand instanceof Double) return;
     throw new RuntimeError(operator, "Operand must be a number.");
@@ -204,6 +208,15 @@ class Interpreter implements Expr.Visitor<Object>,
       return evaluate(expr.thenBranch);
     } else {
       return evaluate(expr.elseBranch);
+    }
+  }
+  String interpret(Expr expression) {
+    try {
+      Object value = evaluate(expression);
+      return stringify(value);
+    } catch (RuntimeError error) {
+      Lox.runtimeError(error);
+      return null;
     }
   }
 }
