@@ -7,13 +7,13 @@ import java.util.Map;
 
 class Interpreter implements Expr.Visitor<Object>,
         Stmt.Visitor<Void> {
-  final Environment globals = new Environment();
-  private Environment environment = globals;
-  private static Object uninitialized = new Object();
+  final Map<String, Object> globals = new HashMap<>();
+  private Environment environment = new Environment();
   private final Map<Expr, Integer> locals = new HashMap<>();
+  private final Map<Expr, Integer> slots = new HashMap<>();
 
   Interpreter() {
-    globals.define("clock", new LoxCallable() {
+    globals.put("clock", new LoxCallable() {
       @Override
       public int arity() { return 0; }
 
@@ -80,9 +80,14 @@ class Interpreter implements Expr.Visitor<Object>,
   private Object lookUpVariable(Token name, Expr expr) {
     Integer distance = locals.get(expr);
     if (distance != null) {
-      return environment.getAt(distance, name.lexeme);
+      return environment.getAt(distance, slots.get(expr));
     } else {
-      return globals.get(name);
+      if (globals.containsKey(name.lexeme)) {
+        return globals.get(name.lexeme);
+      } else {
+        throw new RuntimeError(name,
+                "Undefined variable '" + name.lexeme + "'.");
+      }
     }
   }
 
@@ -124,8 +129,9 @@ class Interpreter implements Expr.Visitor<Object>,
     stmt.accept(this);
   }
 
-  void resolve(Expr expr, int depth) {
+  void resolve(Expr expr, int depth, int slot) {
     locals.put(expr, depth);
+    slots.put(expr, slot);
   }
 
   void executeBlock(List<Stmt> statements,
@@ -157,7 +163,13 @@ class Interpreter implements Expr.Visitor<Object>,
   @Override
   public Void visitFunctionStmt(Stmt.Function stmt) {
     String fnName = stmt.name.lexeme;
-    environment.define(fnName, new LoxFunction(fnName, stmt.function, environment));
+    Object fn = new LoxFunction(fnName, stmt.function, environment);
+
+    if (environment.enclosing == null) {
+      globals.put(fnName, fn);
+    } else {
+      environment.define(fn);
+    }
     return null;
   }
 
@@ -198,7 +210,11 @@ class Interpreter implements Expr.Visitor<Object>,
       value = evaluate(stmt.initializer);
     }
 
-    environment.define(stmt.name.lexeme, value);
+    if (environment.enclosing == null) {
+      globals.put(stmt.name.lexeme, value);
+    } else {
+      environment.define(value);
+    }
     return null;
   }
 
@@ -220,11 +236,15 @@ class Interpreter implements Expr.Visitor<Object>,
 
     Integer distance = locals.get(expr);
     if (distance != null) {
-      environment.assignAt(distance, expr.name, value);
+      environment.assignAt(distance, slots.get(expr), value);
     } else {
-      globals.assign(expr.name, value);
+      if (globals.containsKey(expr.name.lexeme)) {
+        globals.put(expr.name.lexeme, value);
+      } else {
+        throw new RuntimeError(expr.name,
+                "Undefined variable '" + expr.name.lexeme + "'.");
+      }
     }
-
     return value;
   }
 
