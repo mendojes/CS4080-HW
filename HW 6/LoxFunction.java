@@ -21,7 +21,8 @@ class LoxFunction implements LoxCallable {
 
     @Override
     public int arity() {
-        return declaration.function.params.size();
+        List<Token> params = declaration.function.params;
+        return params == null ? 0 : params.size();
     }
 
     @Override
@@ -29,8 +30,10 @@ class LoxFunction implements LoxCallable {
         Environment environment = new Environment(closure);
 
         List<Token> params = declaration.function.params;
-        for (int i = 0; i < params.size(); i++) {
-            environment.define(arguments.get(i));
+        if (params != null) {
+            for (int i = 0; i < params.size(); i++) {
+                environment.define(arguments.get(i));
+            }
         }
 
         try {
@@ -42,6 +45,10 @@ class LoxFunction implements LoxCallable {
 
         if (isInitializer) return closure.getAt(0, 0);
         return null;
+    }
+
+    boolean isGetter() {
+        return declaration.function.params == null;
     }
 
     @Override

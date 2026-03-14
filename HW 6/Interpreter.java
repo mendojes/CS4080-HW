@@ -157,12 +157,27 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
   @Override
   public Void visitClassStmt(Stmt.Class stmt) {
+    Object superclass = null;
+    if (stmt.superclass != null) {
+      superclass = evaluate(stmt.superclass);
+      if (!(superclass instanceof LoxClass)) {
+        throw new RuntimeError(stmt.superclass.name,
+                "Superclass must be a class.");
+      }
+    }
+
     Integer localSlot = null;
 
     if (isGlobalScope()) {
       globals.put(stmt.name.lexeme, null);
     } else {
       localSlot = environment.define(null);
+    }
+
+
+    if (stmt.superclass != null) {
+      environment = new Environment(environment);
+      environment.define(superclass);
     }
 
     Map<String, LoxFunction> classMethods = new HashMap<>();
@@ -176,6 +191,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     LoxClass metaclass = new LoxClass(
             null,
             stmt.name.lexeme + " metaclass",
+            null,
             classMethods
     );
 
@@ -191,8 +207,13 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     LoxClass klass = new LoxClass(
             metaclass,
             stmt.name.lexeme,
+            (LoxClass)superclass,
             methods
     );
+
+    if (superclass != null) {
+      environment = environment.enclosing;
+    }
 
     // Assign the finished class object back into the declared variable.
     if (isGlobalScope()) {
@@ -203,6 +224,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 
     return null;
   }
+
   @Override
   public Object visitLiteralExpr(Expr.Literal expr) {
     return expr.value;
@@ -395,11 +417,29 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
       throw new RuntimeError(expr.name, "Only instances have fields.");
     }
 
+
     Object value = evaluate(expr.value);
     ((LoxInstance) object).set(expr.name, value);
     return value;
   }
 
+  @Override
+  public Object visitSuperExpr(Expr.Super expr) {
+    int distance = locals.get(expr);
+    int superSlot = slots.get(expr);
+
+    LoxClass superclass = (LoxClass) environment.getAt(distance, superSlot);
+    LoxInstance object = (LoxInstance) environment.getAt(distance - 1, 0);
+
+    LoxFunction method = superclass.findMethod(expr.method.lexeme);
+
+    if (method == null) {
+      throw new RuntimeError(expr.method,
+              "Undefined property '" + expr.method.lexeme + "'.");
+    }
+
+    return method.bind(object);
+  }
   private void checkNumberOperand(Token operator, Object operand) {
     if (operand instanceof Double) return;
     throw new RuntimeError(operator, "Operand must be a number.");
