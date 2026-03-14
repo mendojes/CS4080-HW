@@ -67,11 +67,17 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         beginScope();
 
         Expr.Function fn = function.function;
-        for (Token param : fn.params) {
-            declare(param);
-            define(param);
+
+        if (fn.params != null) {
+            for (Token param : fn.params) {
+                declare(param);
+                define(param);
+            }
         }
-        resolve(fn.body);
+
+        if (fn.body != null) {
+            resolve(fn.body);
+        }
 
         endScope();
         currentFunction = enclosingFunction;
@@ -230,7 +236,6 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         currentClass = enclosingClass;
         return null;
     }
-    // ---------------- Expressions ----------------
 
     @Override
     public Void visitAssignExpr(Expr.Assign expr) {
