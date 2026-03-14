@@ -40,7 +40,7 @@ class Parser {
         consume(FUN, null);
         return function("function");
       }
-
+      if (match(TRAIT)) return traitDeclaration();
       if (match(VAR)) return varDeclaration();
 
       return statement();
@@ -60,6 +60,7 @@ class Parser {
       superclass = new Expr.Variable(previous());
     }
 
+    List<Expr> traits = withClause();
 
     List<Stmt.Function> methods = new ArrayList<>();
     List<Stmt.Function> classMethods = new ArrayList<>();
@@ -72,7 +73,7 @@ class Parser {
 
     consume(RIGHT_BRACE, "Expect '}' after class body.");
 
-    return new Stmt.Class(name, superclass, methods, classMethods);
+    return new Stmt.Class(name, superclass, traits, methods, classMethods);
   }
 
   private Stmt statement() {
@@ -540,5 +541,34 @@ class Parser {
     if (isAtEnd()) return false;
     if (tokens.get(current + 1).type == EOF) return false;
     return tokens.get(current + 1).type == tokenType;
+  }
+
+  private Stmt traitDeclaration() {
+    Token name = consume(IDENTIFIER, "Expect trait name.");
+
+    List<Expr> traits = withClause();
+
+    consume(LEFT_BRACE, "Expect '{' before trait body.");
+
+    List<Stmt.Function> methods = new ArrayList<>();
+    while (!check(RIGHT_BRACE) && !isAtEnd()) {
+      methods.add(function("method"));
+    }
+
+    consume(RIGHT_BRACE, "Expect '}' after trait body.");
+
+    return new Stmt.Trait(name, traits, methods);
+  }
+
+  private List<Expr> withClause() {
+    List<Expr> traits = new ArrayList<>();
+    if (match(WITH)) {
+      do {
+        consume(IDENTIFIER, "Expect trait name.");
+        traits.add(new Expr.Variable(previous()));
+      } while (match(COMMA));
+    }
+
+    return traits;
   }
 }

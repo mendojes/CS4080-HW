@@ -195,7 +195,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
             classMethods
     );
 
-    Map<String, LoxFunction> methods = new HashMap<>();
+    Map<String, LoxFunction> methods = applyTraits(stmt.traits);
     for (Stmt.Function method : stmt.methods) {
       boolean isInitializer = method.name.lexeme.equals("init");
       methods.put(
@@ -220,6 +220,40 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
       globals.put(stmt.name.lexeme, klass);
     } else {
       environment.assignAt(0, localSlot, klass);
+    }
+
+    return null;
+  }
+
+  @Override
+  public Void visitTraitStmt(Stmt.Trait stmt) {
+    Integer localSlot = null;
+
+    if (isGlobalScope()) {
+      globals.put(stmt.name.lexeme, null);
+    } else {
+      localSlot = environment.define(null);
+    }
+
+    Map<String, LoxFunction> methods = applyTraits(stmt.traits);
+
+    for (Stmt.Function method : stmt.methods) {
+      if (methods.containsKey(method.name.lexeme)) {
+        throw new RuntimeError(method.name,
+                "A previous trait declares a method named '" +
+                        method.name.lexeme + "'.");
+      }
+
+      LoxFunction function = new LoxFunction(method, environment, false);
+      methods.put(method.name.lexeme, function);
+    }
+
+    LoxTrait trait = new LoxTrait(stmt.name, methods);
+
+    if (isGlobalScope()) {
+      globals.put(stmt.name.lexeme, trait);
+    } else {
+      environment.assignAt(0, localSlot, trait);
     }
 
     return null;
@@ -486,4 +520,29 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
   }
 
+  private Map<String, LoxFunction> applyTraits(List<Expr> traits) {
+    Map<String, LoxFunction> methods = new HashMap<>();
+
+    for (Expr traitExpr : traits) {
+      Object traitObject = evaluate(traitExpr);
+      if (!(traitObject instanceof LoxTrait)) {
+        Token name = ((Expr.Variable)traitExpr).name;
+        throw new RuntimeError(name,
+                "'" + name.lexeme + "' is not a trait.");
+      }
+
+      LoxTrait trait = (LoxTrait) traitObject;
+      for (String name : trait.methods.keySet()) {
+        if (methods.containsKey(name)) {
+          throw new RuntimeError(trait.name,
+                  "A previous trait declares a method named '" +
+                          name + "'.");
+        }
+
+        methods.put(name, trait.methods.get(name));
+      }
+    }
+
+    return methods;
+  }
 }

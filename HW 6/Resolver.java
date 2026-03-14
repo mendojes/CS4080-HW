@@ -26,7 +26,8 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     private enum ClassType {
         NONE,
         CLASS,
-        SUBCLASS
+        SUBCLASS,
+        TRAIT
     }
 
     private static class Variable {
@@ -122,14 +123,14 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
                 int distance = scopes.size() - 1 - i;
                 interpreter.resolve(expr, distance, var.slot);
 
-                if (isRead) var.state = VariableState.READ;
+                if (isRead) {
+                    var.state = VariableState.READ;
+                }
                 return;
             }
         }
-        // not found => global
+        // Not found. Assume it is global.
     }
-
-    // ---------------- Statements ----------------
 
     @Override
     public Void visitBlockStmt(Stmt.Block stmt) {
@@ -159,7 +160,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitVarStmt(Stmt.Var stmt) {
         declare(stmt.name);
-        if (stmt.initializer != null) resolve(stmt.initializer);
+        if (stmt.initializer != null) {
+            resolve(stmt.initializer);
+        }
         define(stmt.name);
         return null;
     }
@@ -229,10 +232,10 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
                     new Variable(stmt.superclass.name, VariableState.DEFINED, slot));
         }
 
-        // Scope for instance methods: defines "this".
         beginScope();
         Map<String, Variable> scope = scopes.peek();
         scope.put("this", new Variable(stmt.name, VariableState.DEFINED, scope.size()));
+        scope.put("inner", new Variable(stmt.name, VariableState.DEFINED, scope.size()));
 
         for (Stmt.Function method : stmt.methods) {
             FunctionType type = FunctionType.METHOD;
@@ -243,7 +246,6 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         }
         endScope();
 
-        // Static methods also get "this", but here it refers to the class object.
         beginScope();
         Map<String, Variable> classScope = scopes.peek();
         classScope.put("this", new Variable(stmt.name, VariableState.DEFINED, classScope.size()));
@@ -253,7 +255,35 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         }
         endScope();
 
-        if (stmt.superclass != null) endScope();
+        if (stmt.superclass != null) {
+            endScope();
+        }
+
+        currentClass = enclosingClass;
+        return null;
+    }
+
+    @Override
+    public Void visitTraitStmt(Stmt.Trait stmt) {
+        declare(stmt.name);
+        define(stmt.name);
+
+        ClassType enclosingClass = currentClass;
+        currentClass = ClassType.TRAIT;
+
+        for (Expr trait : stmt.traits) {
+            resolve(trait);
+        }
+
+        beginScope();
+        Map<String, Variable> scope = scopes.peek();
+        scope.put("this", new Variable(stmt.name, VariableState.DEFINED, scope.size()));
+
+        for (Stmt.Function method : stmt.methods) {
+            resolveFunction(method, FunctionType.METHOD);
+        }
+
+        endScope();
 
         currentClass = enclosingClass;
         return null;
@@ -308,6 +338,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         if (currentClass == ClassType.NONE) {
             Lox.error(expr.keyword,
                     "Can't use 'super' outside of a class.");
+        } else if (currentClass == ClassType.TRAIT) {
+            Lox.error(expr.keyword,
+                    "Can't use 'super' in a trait.");
         } else if (currentClass != ClassType.SUBCLASS) {
             Lox.error(expr.keyword,
                     "Can't use 'super' in a class with no superclass.");
@@ -320,7 +353,9 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
     @Override
     public Void visitCallExpr(Expr.Call expr) {
         resolve(expr.callee);
-        for (Expr argument : expr.arguments) resolve(argument);
+        for (Expr argument : expr.arguments) {
+            resolve(argument);
+        }
         return null;
     }
 
@@ -330,21 +365,57 @@ class Resolver implements Expr.Visitor<Void>, Stmt.Visitor<Void> {
         currentFunction = FunctionType.FUNCTION;
 
         beginScope();
-        for (Token param : expr.params) {
-            declare(param);
-            define(param);
+        if (expr.params != null) {
+            for (Token param : expr.params) {
+                declare(param);
+                define(param);
+            }
         }
-        resolve(expr.body);
+        if (expr.body != null) {
+            resolve(expr.body);
+        }
         endScope();
 
         currentFunction = enclosingFunction;
         return null;
     }
 
-    @Override public Void visitBinaryExpr(Expr.Binary expr) { resolve(expr.left); resolve(expr.right); return null; }
-    @Override public Void visitGroupingExpr(Expr.Grouping expr) { resolve(expr.expression); return null; }
-    @Override public Void visitLiteralExpr(Expr.Literal expr) { return null; }
-    @Override public Void visitLogicalExpr(Expr.Logical expr) { resolve(expr.left); resolve(expr.right); return null; }
-    @Override public Void visitUnaryExpr(Expr.Unary expr) { resolve(expr.right); return null; }
-    @Override public Void visitTernaryExpr(Expr.Ternary expr) { resolve(expr.condition); resolve(expr.thenBranch); resolve(expr.elseBranch); return null; }
+    @Override
+    public Void visitBinaryExpr(Expr.Binary expr) {
+        resolve(expr.left);
+        resolve(expr.right);
+        return null;
+    }
+
+    @Override
+    public Void visitGroupingExpr(Expr.Grouping expr) {
+        resolve(expr.expression);
+        return null;
+    }
+
+    @Override
+    public Void visitLiteralExpr(Expr.Literal expr) {
+        return null;
+    }
+
+    @Override
+    public Void visitLogicalExpr(Expr.Logical expr) {
+        resolve(expr.left);
+        resolve(expr.right);
+        return null;
+    }
+
+    @Override
+    public Void visitUnaryExpr(Expr.Unary expr) {
+        resolve(expr.right);
+        return null;
+    }
+
+    @Override
+    public Void visitTernaryExpr(Expr.Ternary expr) {
+        resolve(expr.condition);
+        resolve(expr.thenBranch);
+        resolve(expr.elseBranch);
+        return null;
+    }
 }
