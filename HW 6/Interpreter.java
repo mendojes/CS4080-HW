@@ -29,6 +29,33 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
         return "<native fn>";
       }
     });
+
+    globals.put("len", new LoxCallable() {
+      @Override
+      public int arity() {
+        return 1;
+      }
+
+      @Override
+      public Object call(Interpreter interpreter, List<Object> arguments) {
+        Object value = arguments.get(0);
+
+        if (!(value instanceof String)) {
+          throw new RuntimeError(
+                  new Token(TokenType.IDENTIFIER, "len", null, 0),
+                  "len() expects a string."
+          );
+        }
+
+        return (double) ((String) value).length();
+      }
+
+      @Override
+      public String toString() {
+        return "<native fn>";
+      }
+    });
+
   }
 
   void interpret(List<Stmt> statements) {
@@ -465,14 +492,14 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     LoxClass superclass = (LoxClass) environment.getAt(distance, superSlot);
     LoxInstance object = (LoxInstance) environment.getAt(distance - 1, 0);
 
-    LoxFunction method = superclass.findMethod(expr.method.lexeme);
+    LoxFunction method = superclass.findMethod(object, expr.method.lexeme);
 
     if (method == null) {
       throw new RuntimeError(expr.method,
               "Undefined property '" + expr.method.lexeme + "'.");
     }
 
-    return method.bind(object);
+    return method;
   }
   private void checkNumberOperand(Token operator, Object operand) {
     if (operand instanceof Double) return;
