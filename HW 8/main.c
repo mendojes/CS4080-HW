@@ -30,10 +30,6 @@ static char* readFile(const char* path) {
 
   fseek(file, 0L, SEEK_END);
   size_t fileSize = ftell(file);
-  if (bytesRead < fileSize) {
-    fprintf(stderr, "Could not read file \"%s\".\n", path);
-    exit(74);
-  }
 
   rewind(file);
 
@@ -44,6 +40,10 @@ static char* readFile(const char* path) {
   }
 
   size_t bytesRead = fread(buffer, sizeof(char), fileSize, file);
+  if (bytesRead < fileSize) {
+    fprintf(stderr, "Could not read file \"%s\".\n", path);
+    exit(74);
+  }
   buffer[bytesRead] = '\0';
 
   fclose(file);
@@ -71,7 +71,7 @@ int main(int argc, const char* argv[]) {
     exit(64);
   }
 
-  freeVM();
+  //freeVM();
 
   Chunk chunk;
   initChunk(&chunk);
@@ -96,7 +96,7 @@ int main(int argc, const char* argv[]) {
   writeChunk(&chunk, OP_RETURN, 123);
 
   disassembleChunk(&chunk, "test chunk");
-  interpret(&chunk);
+  //interpret(&chunk);
   freeVM();
   freeChunk(&chunk);
   return 0;

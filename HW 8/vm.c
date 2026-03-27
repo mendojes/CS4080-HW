@@ -3,6 +3,7 @@
 #include "common.h"
 #include "compiler.h"
 #include "debug.h"
+#include "memory.h"
 #include "vm.h"
 
 VM vm;

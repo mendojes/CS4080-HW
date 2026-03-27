@@ -236,8 +236,6 @@ static void expression() {
 }
 
 bool compile(const char* source, Chunk* chunk) {
-
-void compile(const char* source) {
   initScanner(source);
   compilingChunk = chunk;
 
