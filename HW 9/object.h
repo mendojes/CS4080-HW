@@ -22,8 +22,9 @@ struct Obj {
 
 struct ObjString {
     Obj obj;
+    bool ownsChars;
     int length;
-    char chars[];
+    const char* chars;
 };
 
 ObjString* takeString(char* chars, int length);
