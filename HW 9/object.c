@@ -25,15 +25,20 @@ static ObjString* allocateString(char* chars, int length) {
     return string;
 }
 
-ObjString* takeString(char* chars, int length) {
-    return allocateString(chars, length);
+ObjString* makeString(int length) {
+    ObjString* string = (ObjString*)allocateObject(
+        sizeof(ObjString) + length + 1, OBJ_STRING);
+    string->length = length;
+    return string;
 }
 
 ObjString* copyString(const char* chars, int length) {
-    char* heapChars = ALLOCATE(char, length + 1);
-    memcpy(heapChars, chars, length);
-    heapChars[length] = '\0';
-    return allocateString(heapChars, length);
+    ObjString* string = makeString(length);
+
+    memcpy(string->chars, chars, length);
+    string->chars[length] = '\0';
+
+    return string;
 }
 
 void printObject(Value value) {
