@@ -40,6 +40,7 @@ typedef struct {
 
 Parser parser;
 Chunk* compilingChunk;
+Table stringConstants;
 
 static Chunk* currentChunk() {
   return compilingChunk;
@@ -281,8 +282,15 @@ static void parsePrecedence(Precedence precedence) {
 }
 
 static uint8_t identifierConstant(Token* name) {
-  return makeConstant(OBJ_VAL(copyString(name->start,
-                                         name->length)));
+  ObjString* string = copyString(name->start, name->length);
+  Value indexValue;
+  if (tableGet(&stringConstants, string, &indexValue)) {
+    return (uint8_t)AS_NUMBER(indexValue);
+  }
+
+  uint8_t index = makeConstant(OBJ_VAL(string));
+  tableSet(&stringConstants, string, NUMBER_VAL((double)index));
+  return index;
 }
 
 static uint8_t parseVariable(const char* errorMessage) {
@@ -376,6 +384,7 @@ bool compile(const char* source, Chunk* chunk) {
 
   parser.hadError = false;
   parser.panicMode = false;
+  initTable(&stringConstants)
 
   advance();
 
@@ -386,5 +395,6 @@ bool compile(const char* source, Chunk* chunk) {
   expression();
   consume(TOKEN_EOF, "Expect end of expression.");
   endCompiler();
+  freeTable(&stringConstants)
   return !parser.hadError;
 }
