@@ -6,7 +6,7 @@
 
 
 typedef struct {
-    Value key;
+    ObjString* key;
     Value value;
 } Entry;
 
