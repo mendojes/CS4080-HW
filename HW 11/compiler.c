@@ -56,6 +56,9 @@ Parser parser;
 Compiler* current = NULL;
 Chunk* compilingChunk;
 
+int innermostLoopStart = -1;
+int innermostLoopScopeDepth = 0;
+
 static Chunk* currentChunk() {
   return compilingChunk;
 }
@@ -499,16 +502,20 @@ static void expressionStatement() {
 
 static void forStatement() {
   beginScope();
+
   consume(TOKEN_LEFT_PAREN, "Expect '(' after 'for'.");
-  if (match(TOKEN_SEMICOLON)) {
-    // No initializer.
-  } else if (match(TOKEN_VAR)) {
+  if (match(TOKEN_VAR)) {
     varDeclaration();
+  } else if (match(TOKEN_SEMICOLON)) {
   } else {
     expressionStatement();
   }
 
-  int loopStart = currentChunk()->count;
+  int surroundingLoopStart = innermostLoopStart; 
+  int surroundingLoopScopeDepth = innermostLoopScopeDepth; 
+  innermostLoopStart = currentChunk()->count; 
+  innermostLoopScopeDepth = current->scopeDepth; 
+
   int exitJump = -1;
   if (!match(TOKEN_SEMICOLON)) {
     expression();
@@ -518,6 +525,33 @@ static void forStatement() {
     emitByte(OP_POP);
   }
 
+  if (!match(TOKEN_RIGHT_PAREN)) {
+    int bodyJump = emitJump(OP_JUMP);
+
+    int incrementStart = currentChunk()->count;
+    expression();
+    emitByte(OP_POP);
+    consume(TOKEN_RIGHT_PAREN, "Expect ')' after for clauses.");
+
+    emitLoop(innermostLoopStart); 
+    innermostLoopStart = incrementStart; 
+    patchJump(bodyJump);
+  }
+
+  statement();
+
+  emitLoop(innermostLoopStart); 
+
+  if (exitJump != -1) {
+    patchJump(exitJump);
+    emitByte(OP_POP);
+  }
+
+  innermostLoopStart = surroundingLoopStart; 
+  innermostLoopScopeDepth = surroundingLoopScopeDepth; 
+
+  endScope();
+}
   if (!match(TOKEN_RIGHT_PAREN)) {
     int bodyJump = emitJump(OP_JUMP);
     int incrementStart = currentChunk()->count;
@@ -539,6 +573,24 @@ static void forStatement() {
   }
 
   endScope();
+}
+
+static void continueStatement() {
+  if (innermostLoopStart == -1) {
+    error("Can't use 'continue' outside of a loop.");
+  }
+
+  consume(TOKEN_SEMICOLON, "Expect ';' after 'continue'.");
+
+  // Discard any locals created inside the loop.
+  for (int i = current->localCount - 1;
+       i >= 0 && current->locals[i].depth > innermostLoopScopeDepth;
+       i--) {
+    emitByte(OP_POP);
+       }
+
+  // Jump to top of current innermost loop.
+  emitLoop(innermostLoopStart);
 }
 
 static void ifStatement() {
@@ -686,6 +738,8 @@ static void statement() {
     printStatement();
   } else if (match(TOKEN_FOR)) {
     forStatement();
+  } else if (match(TOKEN_CONTINUE)) {
+    continueStatement()
   } else if (match(TOKEN_IF)) {
     ifStatement();
   } else if (match(TOKEN_SWITCH)) {
