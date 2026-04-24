@@ -86,6 +86,7 @@ static void concatenate() {
 static InterpretResult run() {
 #define READ_BYTE() (*vm.ip++)
 #define READ_CONSTANT() (vm.chunk->constants.values[READ_BYTE()])
+#define READ_SLOT_LONG() ((uint16_t)((READ_BYTE() << 8) | READ_BYTE()))
 #define READ_STRING() AS_STRING(READ_CONSTANT())
 #define BINARY_OP(valueType, op) \
     do { \
@@ -127,12 +128,22 @@ static InterpretResult run() {
         		push(vm.stack[slot]);
         		break;
         	}
+        	case OP_GET_LOCAL_LONG: {
+        		uint16_t slot = READ_SLOT_LONG();
+        		push(vm.stack[slot]);
+        		break;
+        	}
         	case OP_SET_LOCAL: {
         		uint8_t slot = READ_BYTE();
         		vm.stack[slot] = peek(0);
         		break;
         	}
-      		case OP_GET_GLOBAL: {
+        	case OP_SET_LOCAL_LONG: {
+        		uint16_t slot = READ_SLOT_LONG();
+        		vm.stack[slot] = peek(0);
+        		break;
+        	}
+        	case OP_GET_GLOBAL: {
         		ObjString* name = READ_STRING();
         		Value value;
         		if (!tableGet(&vm.globals, name, &value)) {
@@ -206,6 +217,7 @@ static InterpretResult run() {
 
 #undef READ_BYTE
 #undef READ_CONSTANT
+#undef READ_SLOT_LONG
 #undef READ_STRING
 #undef BINARY_OP
 }
