@@ -680,7 +680,10 @@ static void forStatement() {
     patchJump(bodyJump);
   }
 
+  beginScope();
   statement();
+  endScope();
+
   emitLoop(innermostLoopStart);
 
   if (exitJump != -1) {
