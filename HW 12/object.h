@@ -29,6 +29,12 @@ typedef enum {
   OBJ_STRING,
 } ObjType;
 
+typedef struct {
+  Obj obj;
+  NativeFn function;
+  int arity;
+} ObjNative;
+
 struct Obj {
   ObjType type;
   struct Obj* next;
