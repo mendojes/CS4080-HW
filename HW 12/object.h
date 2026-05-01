@@ -29,10 +29,11 @@ typedef enum {
   OBJ_STRING,
 } ObjType;
 
+typedef bool (*NativeFn)(int argCount, Value* args);
+
 typedef struct {
   Obj obj;
   NativeFn function;
-  int arity;
 } ObjNative;
 
 struct Obj {
