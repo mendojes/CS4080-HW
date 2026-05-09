@@ -66,8 +66,7 @@ void initVM() {
   initTable(&vm.globals);
   initTable(&vm.strings);
   defineNative("clock", clockNative);
-  defineNative("getField", getFieldNative);
-  defineNative("setField", setFieldNative);
+  defineNative("deleteField", deleteFieldNative);
 }
 
 void freeVM() {
@@ -428,28 +427,13 @@ InterpretResult interpret(const char* source) {
   return run();
 }
 
-static Value getFieldNative(int argCount, Value* args) {
-  if (argCount != 2) return FALSE_VAL;
-  if (!IS_INSTANCE(args[0])) return FALSE_VAL;
-  if (!IS_STRING(args[1])) return FALSE_VAL;
+static Value deleteFieldNative(int argCount, Value* args) {
+  if (argCount != 2) return NIL_VAL;
+  if (!IS_INSTANCE(args[0])) return NIL_VAL;
+  if (!IS_STRING(args[1])) return NIL_VAL;
 
   ObjInstance* instance = AS_INSTANCE(args[0]);
-  Value value;
+  tableDelete(&instance->fields, AS_STRING(args[1]));
 
-  if (!tableGet(&instance->fields, AS_STRING(args[1]), &value)) {
-    return NIL_VAL;
-  }
-
-  return value;
-}
-
-static Value setFieldNative(int argCount, Value* args) {
-  if (argCount != 3) return FALSE_VAL;
-  if (!IS_INSTANCE(args[0])) return FALSE_VAL;
-  if (!IS_STRING(args[1])) return FALSE_VAL;
-
-  ObjInstance* instance = AS_INSTANCE(args[0]);
-  tableSet(&instance->fields, AS_STRING(args[1]), args[2]);
-
-  return args[2];
+  return NIL_VAL;
 }
