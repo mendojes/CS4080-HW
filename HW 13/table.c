@@ -82,6 +82,12 @@ bool tableSet(Table* table, ObjString* key, Value value) {
         adjustCapacity(table, capacity);
     }
 
+    if (IS_OBJ(value)) incRef(AS_OBJ(value));
+
+    if (!isNewKey && IS_OBJ(entry->value)) {
+        decRef(AS_OBJ(entry->value));
+    }
+
     Entry* entry = findEntry(table->entries, table->capacity, key);
     bool isNewKey = entry->key == NULL;
     if (isNewKey && IS_NIL(entry->value)) table->count++;

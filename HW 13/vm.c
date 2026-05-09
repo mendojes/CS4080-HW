@@ -75,13 +75,15 @@ void freeVM() {
 }
 
 void push(Value value) {
-  *vm.stackTop = value;
-  vm.stackTop++;
+  if (IS_OBJ(value)) incRef(AS_OBJ(value));
+  vm.stack[vm.stackCount++] = value;
 }
 
 Value pop() {
-  vm.stackTop--;
-  return *vm.stackTop;
+  vm.stackCount--;
+  Value value = vm.stack[vm.stackCount];
+  if (IS_OBJ(value)) decRef(AS_OBJ(value));
+  return value;
 }
 
 static Value peek(int distance) {
@@ -131,14 +133,24 @@ static bool callValue(Value callee, int argCount) {
 static ObjUpvalue* captureUpvalue(Value* local) {
   ObjUpvalue* prevUpvalue = NULL;
   ObjUpvalue* upvalue = vm.openUpvalues;
+
   while (upvalue != NULL && upvalue->location > local) {
     prevUpvalue = upvalue;
     upvalue = upvalue->next;
   }
 
-  if (upvalue != NULL && upvalue->location == local) return upvalue;
+  if (upvalue != NULL && upvalue->location == local) {
+    incRef((Obj*)upvalue);
+    return upvalue;
+  }
 
   ObjUpvalue* createdUpvalue = newUpvalue(local);
+  incRef((Obj*)createdUpvalue);
+
+  if (IS_OBJ(*local)) {
+    incRef(AS_OBJ(*local));
+  }
+
   createdUpvalue->next = upvalue;
 
   if (prevUpvalue == NULL) {

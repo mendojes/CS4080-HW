@@ -192,6 +192,7 @@ static void patchJump(int offset) {
 static void initCompiler(Compiler* compiler, FunctionType type) {
   compiler->enclosing = current;
   compiler->function = newFunction();
+  incRef((Obj*)compiler->function);
   compiler->type = type;
   compiler->localCount = 0;
   compiler->scopeDepth = 0;
@@ -222,6 +223,7 @@ static ObjFunction* endCompiler() {
 #endif
 
   current = current->enclosing;
+  decRef((Obj*)function);
   return function;
 }
 

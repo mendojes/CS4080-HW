@@ -15,6 +15,7 @@ static Obj* allocateObject(size_t size, ObjType type) {
   object->type = type;
   object->isMarked = false;
   object->next = vm.objects;
+  object->refCount = 0;
   vm.objects = object;
 
 #ifdef DEBUG_LOG_GC
