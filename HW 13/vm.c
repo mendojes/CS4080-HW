@@ -66,6 +66,7 @@ void initVM() {
   initTable(&vm.globals);
   initTable(&vm.strings);
   defineNative("clock", clockNative);
+  defineNative("hasField", hasFieldNative);
 }
 
 void freeVM() {
@@ -424,4 +425,17 @@ InterpretResult interpret(const char* source) {
   push(OBJ_VAL(closure));
   call(closure, 0);
   return run();
+}
+
+static Value hasFieldNative(int argCount, Value* args) {
+  if (argCount != 2) return FALSE_VAL;
+  if (!IS_INSTANCE(args[0])) return FALSE_VAL;
+  if (!IS_STRING(args[1])) return FALSE_VAL;
+
+  ObjInstance* instance = AS_INSTANCE(args[0]);
+  Value dummy;
+
+  return BOOL_VAL(tableGet(&instance->fields,
+                           AS_STRING(args[1]),
+                           &dummy));
 }
