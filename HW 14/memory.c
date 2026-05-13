@@ -83,6 +83,7 @@ static void freeObject(Obj* object) {
       FREE(ObjUpvalue, object);
       break;
   }
+  freeTable(&klass->ownMethods);
 }
 
 static void markArray(ValueArray* array) {

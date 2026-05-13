@@ -73,6 +73,8 @@ struct ObjClass {
   ObjString* name;
   Value initializer;
   Table methods;
+  Table ownMethods;
+  struct ObjClass* superclass;
 };
 
 struct ObjClosure {
@@ -80,6 +82,7 @@ struct ObjClosure {
   ObjFunction* function;
   ObjUpvalue** upvalues;
   int upvalueCount;
+  ObjClass* owner;
 };
 
 struct ObjInstance {

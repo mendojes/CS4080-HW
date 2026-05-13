@@ -436,6 +436,28 @@ static Token syntheticToken(const char* text) {
   return token;
 }
 
+static void inner_(bool canAssign) {
+  (void)canAssign;
+
+  if (currentClass == NULL ||
+      (current->type != TYPE_METHOD &&
+       current->type != TYPE_INITIALIZER)) {
+    error("Can't use 'inner' outside of a method.");
+    return;
+       }
+
+  consume(TOKEN_LEFT_PAREN, "Expect '(' after 'inner'.");
+  emitBytes(OP_GET_LOCAL, 0);
+
+  uint8_t argCount = argumentList();
+
+  ObjString* name = current->function->name;
+  uint8_t nameConst = makeConstant(OBJ_VAL(name));
+
+  emitBytes(OP_INNER, nameConst);
+  emitByte(argCount);
+}
+
 static void super_(bool canAssign) {
   (void)canAssign;
   if (currentClass == NULL) {

@@ -60,7 +60,17 @@ static void defineNative(const char* name, NativeFn function) {
 static void defineMethod(ObjString* name) {
   Value method = peek(0);
   ObjClass* klass = AS_CLASS(peek(1));
-  tableSet(&klass->methods, name, method);
+  ObjClosure* closure = AS_CLOSURE(method);
+
+  closure->owner = klass;
+
+  tableSet(&klass->ownMethods, name, method);
+
+  Value existing;
+  if (!tableGet(&klass->methods, name, &existing)) {
+    tableSet(&klass->methods, name, method);
+  }
+
   pop();
 }
 
@@ -463,6 +473,45 @@ static InterpretResult run() {
           return INTERPRET_RUNTIME_ERROR;
         }
         frame = &vm.frames[vm.frameCount - 1];
+        break;
+      }
+      case OP_INNER: {
+        ObjString* name = READ_STRING();
+        int argCount = READ_BYTE();
+
+        ObjClosure* source = frame->closure;
+        ObjInstance* instance = AS_INSTANCE(peek(argCount));
+
+        ObjClass* path[64];
+        int pathLen = 0;
+
+        for (ObjClass* k = instance->klass;
+             k != NULL && k != source->owner && pathLen < 64;
+             k = k->superclass) {
+          path[pathLen++] = k;
+             }
+
+        Value method;
+        bool found = false;
+
+        for (int i = pathLen - 1; i >= 0; i--) {
+          if (tableGet(&path[i]->ownMethods, name, &method)) {
+            found = true;
+            break;
+          }
+        }
+
+        if (!found) {
+          vm.stackTop -= argCount;
+          *(vm.stackTop - 1) = NIL_VAL;
+          break;
+        }
+
+        STORE_FRAME();
+        if (!call(AS_CLOSURE(method), argCount)) {
+          return INTERPRET_RUNTIME_ERROR;
+        }
+        LOAD_FRAME();
         break;
       }
       case OP_CLOSURE: {
