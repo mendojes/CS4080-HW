@@ -1,0 +1,981 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 43.74      1.92     1.92        1     1.92     4.38  run
+ 15.03      2.58     0.66 1118531570     0.00     0.00  push
+ 13.33      3.17     0.58 1258632895     0.00     0.00  peek
+ 10.36      3.62     0.46 1118531563     0.00     0.00  pop
+  9.57      4.04     0.42 838997770     0.00     0.00  valueToNum
+  2.96      4.17     0.13 279800127     0.00     0.00  numToValue
+  2.51      4.28     0.11 139800124     0.00     0.00  isObjType
+  2.16      4.38     0.10 140000001     0.00     0.00  isFalsey
+  0.23      4.38     0.01        2     0.01     0.01  call
+  0.11      4.39     0.01                             concatenate
+  0.00      4.39     0.00      608     0.00     0.00  peek
+  0.00      4.39     0.00      484     0.00     0.00  advance
+  0.00      4.39     0.00      314     0.00     0.00  isAlpha
+  0.00      4.39     0.00      249     0.00     0.00  check
+  0.00      4.39     0.00      214     0.00     0.00  match
+  0.00      4.39     0.00      199     0.00     0.00  currentChunk
+  0.00      4.39     0.00      164     0.00     0.00  isDigit
+  0.00      4.39     0.00      150     0.00     0.00  emitByte
+  0.00      4.39     0.00      150     0.00     0.00  writeChunk
+  0.00      4.39     0.00      143     0.00     0.00  isAtEnd
+  0.00      4.39     0.00      133     0.00     0.00  getRule
+  0.00      4.39     0.00      127     0.00     0.00  advance
+  0.00      4.39     0.00      127     0.00     0.00  makeToken
+  0.00      4.39     0.00      127     0.00     0.00  scanToken
+  0.00      4.39     0.00      127     0.00     0.00  skipWhitespace
+  0.00      4.39     0.00       62     0.00     0.00  reallocate
+  0.00      4.39     0.00       52     0.00     0.00  identifiersEqual
+  0.00      4.39     0.00       47     0.00     0.00  emitBytes
+  0.00      4.39     0.00       47     0.00     0.00  identifier
+  0.00      4.39     0.00       47     0.00     0.00  identifierType
+  0.00      4.39     0.00       40     0.00     0.00  parsePrecedence
+  0.00      4.39     0.00       38     0.00     0.00  consume
+  0.00      4.39     0.00       26     0.00     0.00  checkKeyword
+  0.00      4.39     0.00       26     0.00     0.00  namedVariable
+  0.00      4.39     0.00       26     0.00     0.00  resolveLocal
+  0.00      4.39     0.00       26     0.00     0.00  variable
+  0.00      4.39     0.00       24     0.00     0.00  expression
+  0.00      4.39     0.00       23     0.00     0.00  addConstant
+  0.00      4.39     0.00       23     0.00     0.00  makeConstant
+  0.00      4.39     0.00       23     0.00     0.00  writeValueArray
+  0.00      4.39     0.00       18     0.00     0.00  declaration
+  0.00      4.39     0.00       16     0.00     0.00  statement
+  0.00      4.39     0.00       15     0.00     0.00  binary
+  0.00      4.39     0.00       15     0.00     0.00  match
+  0.00      4.39     0.00       14     0.00     0.00  emitConstant
+  0.00      4.39     0.00       14     0.00     0.00  findEntry
+  0.00      4.39     0.00       14     0.00     0.00  numToValue
+  0.00      4.39     0.00       14     0.00     0.00  number
+  0.00      4.39     0.00       14     0.00     0.00  number
+  0.00      4.39     0.00       11     0.00     0.00  copyString
+  0.00      4.39     0.00       11     0.00     0.00  hashString
+  0.00      4.39     0.00       11     0.00     0.00  tableFindString
+  0.00      4.39     0.00       10     0.00     0.00  allocateObject
+  0.00      4.39     0.00       10     0.00     0.00  freeObject
+  0.00      4.39     0.00        9     0.00     0.00  tableSet
+  0.00      4.39     0.00        8     0.00     0.00  identifierConstant
+  0.00      4.39     0.00        7     0.00     0.00  declareVariable
+  0.00      4.39     0.00        7     0.00     0.00  defineVariable
+  0.00      4.39     0.00        7     0.00     0.00  parseVariable
+  0.00      4.39     0.00        6     0.00     0.00  emitJump
+  0.00      4.39     0.00        6     0.00     0.00  expressionStatement
+  0.00      4.39     0.00        6     0.00     0.00  initValueArray
+  0.00      4.39     0.00        6     0.00     0.00  patchJump
+  0.00      4.39     0.00        5     0.00     0.00  allocateString
+  0.00      4.39     0.00        5     0.00     0.00  beginScope
+  0.00      4.39     0.00        5     0.00     0.00  block
+  0.00      4.39     0.00        5     0.00     0.00  markInitialized
+  0.00      4.39     0.00        5     0.00     0.00  resolveUpvalue
+  0.00      4.39     0.00        5     0.00     0.00  tableGet
+  0.00      4.39     0.00        5     0.00     0.00  varDeclaration
+  0.00      4.39     0.00        4     0.00     0.00  addLocal
+  0.00      4.39     0.00        4     0.00     0.00  endScope
+  0.00      4.39     0.00        4     0.00     0.00  initChunk
+  0.00      4.39     0.00        4     0.00     0.00  initTable
+  0.00      4.39     0.00        3     0.00     0.00  argumentList
+  0.00      4.39     0.00        3     0.00     0.00  call
+  0.00      4.39     0.00        3     0.00     0.00  callValue
+  0.00      4.39     0.00        2     0.00     0.00  adjustCapacity
+  0.00      4.39     0.00        2     0.00     0.00  clockNative
+  0.00      4.39     0.00        2     0.00     0.00  closeUpvalues
+  0.00      4.39     0.00        2     0.00     0.00  emitReturn
+  0.00      4.39     0.00        2     0.00     0.00  endCompiler
+  0.00      4.39     0.00        2     0.00     0.00  freeChunk
+  0.00      4.39     0.00        2     0.00     0.00  freeTable
+  0.00      4.39     0.00        2     0.00     0.00  freeValueArray
+  0.00      4.39     0.00        2     0.00     0.00  ifStatement
+  0.00      4.39     0.00        2     0.00     0.00  initCompiler
+  0.00      4.39     0.00        2     0.00     0.00  newClosure
+  0.00      4.39     0.00        2     0.00     0.00  newFunction
+  0.00      4.39     0.00        2     0.00     0.00  printStatement
+  0.00      4.39     0.00        2     0.00     0.00  printValue
+  0.00      4.39     0.00        2     0.00     0.00  valueToNum
+  0.00      4.39     0.00        1     0.00     0.00  and_
+  0.00      4.39     0.00        1     0.00     0.00  compile
+  0.00      4.39     0.00        1     0.00     0.00  defineNative
+  0.00      4.39     0.00        1     0.00     0.00  emitLoop
+  0.00      4.39     0.00        1     0.00     0.00  freeObjects
+  0.00      4.39     0.00        1     0.00     0.00  freeVM
+  0.00      4.39     0.00        1     0.00     0.00  funDeclaration
+  0.00      4.39     0.00        1     0.00     0.00  function
+  0.00      4.39     0.00        1     0.00     0.00  initScanner
+  0.00      4.39     0.00        1     0.00     0.00  initVM
+  0.00      4.39     0.00        1     0.00     4.38  interpret
+  0.00      4.39     0.00        1     0.00     0.00  newNative
+  0.00      4.39     0.00        1     0.00     0.00  peekNext
+  0.00      4.39     0.00        1     0.00     0.00  readFile
+  0.00      4.39     0.00        1     0.00     0.00  resetStack
+  0.00      4.39     0.00        1     0.00     0.00  returnStatement
+  0.00      4.39     0.00        1     0.00     4.38  runFile
+  0.00      4.39     0.00        1     0.00     0.00  whileStatement
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.23% of 4.39 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     99.9    0.00    4.39                 main [1]
+                0.00    4.38       1/1           runFile [3]
+                0.00    0.00       1/1           initVM [32]
+                0.00    0.00       1/1           freeVM [108]
+-----------------------------------------------
+                0.00    4.38       1/1           runFile [3]
+[2]     99.9    0.00    4.38       1         interpret [2]
+                1.92    2.46       1/1           run [4]
+                0.01    0.00       1/2           call [12]
+                0.00    0.00       1/1           compile [15]
+                0.00    0.00       2/1118531570     push [5]
+                0.00    0.00       1/1118531563     pop [7]
+                0.00    0.00       1/2           newClosure [101]
+-----------------------------------------------
+                0.00    4.38       1/1           main [1]
+[3]     99.9    0.00    4.38       1         runFile [3]
+                0.00    4.38       1/1           interpret [2]
+                0.00    0.00       1/1           readFile [112]
+-----------------------------------------------
+                1.92    2.46       1/1           interpret [2]
+[4]     99.8    1.92    2.46       1         run [4]
+                0.66    0.00 1118531536/1118531570     push [5]
+                0.58    0.00 1258632895/1258632895     peek [6]
+                0.45    0.00 1118531532/1118531563     pop [7]
+                0.42    0.00 838997770/838997770     valueToNum [8]
+                0.13    0.00 279800125/279800127     numToValue [9]
+                0.11    0.00 139800124/139800124     isObjType [10]
+                0.10    0.00 140000001/140000001     isFalsey [11]
+                0.00    0.01       3/3           callValue [13]
+                0.00    0.00       5/5           tableGet [87]
+                0.00    0.00       3/9           tableSet [77]
+                0.00    0.00       2/2           printValue [103]
+                0.00    0.00       2/2           closeUpvalues [95]
+                0.00    0.00       1/2           newClosure [101]
+-----------------------------------------------
+                0.00    0.00       2/1118531570     defineNative [35]
+                0.00    0.00       2/1118531570     callValue [13]
+                0.00    0.00       2/1118531570     interpret [2]
+                0.00    0.00       5/1118531570     allocateString [30]
+                0.00    0.00      23/1118531570     addConstant [17]
+                0.66    0.00 1118531536/1118531570     run [4]
+[5]     15.0    0.66    0.00 1118531570         push [5]
+-----------------------------------------------
+                0.58    0.00 1258632895/1258632895     run [4]
+[6]     13.3    0.58    0.00 1258632895         peek [6]
+-----------------------------------------------
+                0.00    0.00       1/1118531563     interpret [2]
+                0.00    0.00       2/1118531563     defineNative [35]
+                0.00    0.00       5/1118531563     allocateString [30]
+                0.00    0.00      23/1118531563     addConstant [17]
+                0.45    0.00 1118531532/1118531563     run [4]
+[7]     10.4    0.46    0.00 1118531563         pop [7]
+-----------------------------------------------
+                0.42    0.00 838997770/838997770     run [4]
+[8]      9.6    0.42    0.00 838997770         valueToNum [8]
+-----------------------------------------------
+                0.00    0.00       2/279800127     clockNative [39]
+                0.13    0.00 279800125/279800127     run [4]
+[9]      3.0    0.13    0.00 279800127         numToValue [9]
+-----------------------------------------------
+                0.11    0.00 139800124/139800124     run [4]
+[10]     2.5    0.11    0.00 139800124         isObjType [10]
+-----------------------------------------------
+                0.10    0.00 140000001/140000001     run [4]
+[11]     2.2    0.10    0.00 140000001         isFalsey [11]
+-----------------------------------------------
+                0.01    0.00       1/2           callValue [13]
+                0.01    0.00       1/2           interpret [2]
+[12]     0.2    0.01    0.00       2         call [12]
+-----------------------------------------------
+                0.00    0.01       3/3           run [4]
+[13]     0.1    0.00    0.01       3         callValue [13]
+                0.01    0.00       1/2           call [12]
+                0.00    0.00       2/1118531570     push [5]
+                0.00    0.00       2/2           clockNative [39]
+-----------------------------------------------
+                                                 <spontaneous>
+[14]     0.1    0.01    0.00                 concatenate [14]
+-----------------------------------------------
+                0.00    0.00       1/1           interpret [2]
+[15]     0.0    0.00    0.00       1         compile [15]
+                0.00    0.00       5/5           declaration <cycle 2> [25]
+                0.00    0.00       1/2           initCompiler [41]
+                0.00    0.00       6/214         match [46]
+                0.00    0.00       1/1           initScanner [109]
+                0.00    0.00       1/127         advance [53]
+                0.00    0.00       1/2           endCompiler [97]
+-----------------------------------------------
+[16]     0.0    0.00    0.00       5+39      <cycle 2 as a whole> [16]
+                0.00    0.00      16             statement <cycle 2> [24]
+                0.00    0.00      18             declaration <cycle 2> [25]
+                0.00    0.00       2             ifStatement <cycle 2> [33]
+                0.00    0.00       1             function <cycle 2> [36]
+                0.00    0.00       1             whileStatement <cycle 2> [38]
+                0.00    0.00       1             funDeclaration <cycle 2> [40]
+                0.00    0.00       5             block <cycle 2> [84]
+-----------------------------------------------
+                0.00    0.00      23/23          makeConstant [18]
+[17]     0.0    0.00    0.00      23         addConstant [17]
+                0.00    0.00      23/1118531570     push [5]
+                0.00    0.00      23/1118531563     pop [7]
+                0.00    0.00      23/23          writeValueArray [67]
+-----------------------------------------------
+                0.00    0.00       1/23          function <cycle 2> [36]
+                0.00    0.00       8/23          identifierConstant [23]
+                0.00    0.00      14/23          emitConstant [21]
+[18]     0.0    0.00    0.00      23         makeConstant [18]
+                0.00    0.00      23/23          addConstant [17]
+                0.00    0.00      23/199         currentChunk [47]
+-----------------------------------------------
+[19]     0.0    0.00    0.00      17+121     <cycle 1 as a whole> [19]
+                0.00    0.00      40             parsePrecedence <cycle 1> [20]
+                0.00    0.00      26             namedVariable <cycle 1> [28]
+                0.00    0.00      26             variable <cycle 1> [65]
+                0.00    0.00      24             expression <cycle 1> [66]
+                0.00    0.00      15             binary <cycle 1> [68]
+                0.00    0.00       3             call <cycle 1> [93]
+                0.00    0.00       3             argumentList <cycle 1> [92]
+                0.00    0.00       1             and_ <cycle 1> [105]
+-----------------------------------------------
+                                   1             and_ <cycle 1> [105]
+                                  15             binary <cycle 1> [68]
+                                  24             expression <cycle 1> [66]
+[20]     0.0    0.00    0.00      40         parsePrecedence <cycle 1> [20]
+                0.00    0.00      14/14          number [22]
+                0.00    0.00     118/133         getRule [52]
+                0.00    0.00      59/127         advance [53]
+                0.00    0.00      24/214         match [46]
+                                  26             variable <cycle 1> [65]
+                                  15             binary <cycle 1> [68]
+                                   3             call <cycle 1> [93]
+                                   1             and_ <cycle 1> [105]
+-----------------------------------------------
+                0.00    0.00      14/14          number [22]
+[21]     0.0    0.00    0.00      14         emitConstant [21]
+                0.00    0.00      14/23          makeConstant [18]
+                0.00    0.00      14/47          emitBytes [59]
+-----------------------------------------------
+                0.00    0.00      14/14          parsePrecedence <cycle 1> [20]
+[22]     0.0    0.00    0.00      14         number [22]
+                0.00    0.00      14/14          emitConstant [21]
+                0.00    0.00      14/14          numToValue [71]
+-----------------------------------------------
+                0.00    0.00       3/8           parseVariable [31]
+                0.00    0.00       5/8           namedVariable <cycle 1> [28]
+[23]     0.0    0.00    0.00       8         identifierConstant [23]
+                0.00    0.00       8/23          makeConstant [18]
+                0.00    0.00       8/11          copyString [29]
+-----------------------------------------------
+                                   1             whileStatement <cycle 2> [38]
+                                   3             ifStatement <cycle 2> [33]
+                                  12             declaration <cycle 2> [25]
+[24]     0.0    0.00    0.00      16         statement <cycle 2> [24]
+                0.00    0.00       6/6           expressionStatement [27]
+                0.00    0.00       2/2           printStatement [34]
+                0.00    0.00       1/1           returnStatement [37]
+                0.00    0.00     102/214         match [46]
+                0.00    0.00       4/5           beginScope [83]
+                0.00    0.00       4/4           endScope [89]
+                                   4             block <cycle 2> [84]
+                                   2             ifStatement <cycle 2> [33]
+                                   1             whileStatement <cycle 2> [38]
+-----------------------------------------------
+                                  13             block <cycle 2> [84]
+                0.00    0.00       5/5           compile [15]
+[25]     0.0    0.00    0.00      18         declaration <cycle 2> [25]
+                0.00    0.00       5/5           varDeclaration [26]
+                0.00    0.00      53/214         match [46]
+                                  12             statement <cycle 2> [24]
+                                   1             funDeclaration <cycle 2> [40]
+-----------------------------------------------
+                0.00    0.00       5/5           declaration <cycle 2> [25]
+[26]     0.0    0.00    0.00       5         varDeclaration [26]
+                0.00    0.00       5/17          expression <cycle 1> [66]
+                0.00    0.00       5/7           parseVariable [31]
+                0.00    0.00       5/214         match [46]
+                0.00    0.00       5/38          consume [62]
+                0.00    0.00       5/7           defineVariable [79]
+-----------------------------------------------
+                0.00    0.00       6/6           statement <cycle 2> [24]
+[27]     0.0    0.00    0.00       6         expressionStatement [27]
+                0.00    0.00       6/17          expression <cycle 1> [66]
+                0.00    0.00       6/150         emitByte [49]
+                0.00    0.00       6/38          consume [62]
+-----------------------------------------------
+                                  26             variable <cycle 1> [65]
+[28]     0.0    0.00    0.00      26         namedVariable <cycle 1> [28]
+                0.00    0.00       5/8           identifierConstant [23]
+                0.00    0.00      26/26          resolveLocal [64]
+                0.00    0.00      26/47          emitBytes [59]
+                0.00    0.00      19/214         match [46]
+                0.00    0.00       5/5           resolveUpvalue [86]
+                                   6             expression <cycle 1> [66]
+-----------------------------------------------
+                0.00    0.00       1/11          initCompiler [41]
+                0.00    0.00       1/11          defineNative [35]
+                0.00    0.00       1/11          initVM [32]
+                0.00    0.00       8/11          identifierConstant [23]
+[29]     0.0    0.00    0.00      11         copyString [29]
+                0.00    0.00       5/5           allocateString [30]
+                0.00    0.00      11/11          hashString [73]
+                0.00    0.00      11/11          tableFindString [74]
+                0.00    0.00       5/62          reallocate [57]
+-----------------------------------------------
+                0.00    0.00       5/5           copyString [29]
+[30]     0.0    0.00    0.00       5         allocateString [30]
+                0.00    0.00       5/1118531570     push [5]
+                0.00    0.00       5/1118531563     pop [7]
+                0.00    0.00       5/10          allocateObject [75]
+                0.00    0.00       5/9           tableSet [77]
+-----------------------------------------------
+                0.00    0.00       1/7           function <cycle 2> [36]
+                0.00    0.00       1/7           funDeclaration <cycle 2> [40]
+                0.00    0.00       5/7           varDeclaration [26]
+[31]     0.0    0.00    0.00       7         parseVariable [31]
+                0.00    0.00       3/8           identifierConstant [23]
+                0.00    0.00       7/38          consume [62]
+                0.00    0.00       7/7           declareVariable [78]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[32]     0.0    0.00    0.00       1         initVM [32]
+                0.00    0.00       1/1           defineNative [35]
+                0.00    0.00       1/11          copyString [29]
+                0.00    0.00       2/4           initTable [91]
+                0.00    0.00       1/1           resetStack [113]
+-----------------------------------------------
+                                   2             statement <cycle 2> [24]
+[33]     0.0    0.00    0.00       2         ifStatement <cycle 2> [33]
+                0.00    0.00       2/17          expression <cycle 1> [66]
+                0.00    0.00       4/38          consume [62]
+                0.00    0.00       4/6           emitJump [80]
+                0.00    0.00       4/150         emitByte [49]
+                0.00    0.00       4/6           patchJump [82]
+                0.00    0.00       2/214         match [46]
+                                   3             statement <cycle 2> [24]
+-----------------------------------------------
+                0.00    0.00       2/2           statement <cycle 2> [24]
+[34]     0.0    0.00    0.00       2         printStatement [34]
+                0.00    0.00       2/17          expression <cycle 1> [66]
+                0.00    0.00       2/150         emitByte [49]
+                0.00    0.00       2/38          consume [62]
+-----------------------------------------------
+                0.00    0.00       1/1           initVM [32]
+[35]     0.0    0.00    0.00       1         defineNative [35]
+                0.00    0.00       2/1118531570     push [5]
+                0.00    0.00       2/1118531563     pop [7]
+                0.00    0.00       1/11          copyString [29]
+                0.00    0.00       1/1           newNative [110]
+                0.00    0.00       1/9           tableSet [77]
+-----------------------------------------------
+                                   1             funDeclaration <cycle 2> [40]
+[36]     0.0    0.00    0.00       1         function <cycle 2> [36]
+                0.00    0.00       1/23          makeConstant [18]
+                0.00    0.00       1/7           parseVariable [31]
+                0.00    0.00       1/2           initCompiler [41]
+                0.00    0.00       3/38          consume [62]
+                0.00    0.00       1/5           beginScope [83]
+                0.00    0.00       1/249         check [45]
+                0.00    0.00       1/214         match [46]
+                0.00    0.00       1/7           defineVariable [79]
+                0.00    0.00       1/2           endCompiler [97]
+                0.00    0.00       1/47          emitBytes [59]
+                                   1             block <cycle 2> [84]
+-----------------------------------------------
+                0.00    0.00       1/1           statement <cycle 2> [24]
+[37]     0.0    0.00    0.00       1         returnStatement [37]
+                0.00    0.00       1/17          expression <cycle 1> [66]
+                0.00    0.00       1/214         match [46]
+                0.00    0.00       1/150         emitByte [49]
+                0.00    0.00       1/38          consume [62]
+-----------------------------------------------
+                                   1             statement <cycle 2> [24]
+[38]     0.0    0.00    0.00       1         whileStatement <cycle 2> [38]
+                0.00    0.00       1/17          expression <cycle 1> [66]
+                0.00    0.00       2/38          consume [62]
+                0.00    0.00       2/150         emitByte [49]
+                0.00    0.00       1/199         currentChunk [47]
+                0.00    0.00       1/6           emitJump [80]
+                0.00    0.00       1/1           emitLoop [106]
+                0.00    0.00       1/6           patchJump [82]
+                                   1             statement <cycle 2> [24]
+-----------------------------------------------
+                0.00    0.00       2/2           callValue [13]
+[39]     0.0    0.00    0.00       2         clockNative [39]
+                0.00    0.00       2/279800127     numToValue [9]
+-----------------------------------------------
+                                   1             declaration <cycle 2> [25]
+[40]     0.0    0.00    0.00       1         funDeclaration <cycle 2> [40]
+                0.00    0.00       1/7           parseVariable [31]
+                0.00    0.00       1/5           markInitialized [85]
+                0.00    0.00       1/7           defineVariable [79]
+                                   1             function <cycle 2> [36]
+-----------------------------------------------
+                0.00    0.00       1/2           function <cycle 2> [36]
+                0.00    0.00       1/2           compile [15]
+[41]     0.0    0.00    0.00       2         initCompiler [41]
+                0.00    0.00       1/11          copyString [29]
+                0.00    0.00       2/2           newFunction [102]
+-----------------------------------------------
+                0.00    0.00      53/608         number [72]
+                0.00    0.00     236/608         identifier [60]
+                0.00    0.00     319/608         skipWhitespace [56]
+[42]     0.0    0.00    0.00     608         peek [42]
+-----------------------------------------------
+                0.00    0.00      25/484         number [72]
+                0.00    0.00     125/484         scanToken [55]
+                0.00    0.00     142/484         identifier [60]
+                0.00    0.00     192/484         skipWhitespace [56]
+[43]     0.0    0.00    0.00     484         advance [43]
+-----------------------------------------------
+                0.00    0.00     125/314         scanToken [55]
+                0.00    0.00     189/314         identifier [60]
+[44]     0.0    0.00    0.00     314         isAlpha [44]
+-----------------------------------------------
+                0.00    0.00       1/249         function <cycle 2> [36]
+                0.00    0.00       3/249         argumentList <cycle 1> [92]
+                0.00    0.00      31/249         block <cycle 2> [84]
+                0.00    0.00     214/249         match [46]
+[45]     0.0    0.00    0.00     249         check [45]
+-----------------------------------------------
+                0.00    0.00       1/214         argumentList <cycle 1> [92]
+                0.00    0.00       1/214         function <cycle 2> [36]
+                0.00    0.00       1/214         returnStatement [37]
+                0.00    0.00       2/214         ifStatement <cycle 2> [33]
+                0.00    0.00       5/214         varDeclaration [26]
+                0.00    0.00       6/214         compile [15]
+                0.00    0.00      19/214         namedVariable <cycle 1> [28]
+                0.00    0.00      24/214         parsePrecedence <cycle 1> [20]
+                0.00    0.00      53/214         declaration <cycle 2> [25]
+                0.00    0.00     102/214         statement <cycle 2> [24]
+[46]     0.0    0.00    0.00     214         match [46]
+                0.00    0.00     214/249         check [45]
+                0.00    0.00      29/127         advance [53]
+-----------------------------------------------
+                0.00    0.00       1/199         emitLoop [106]
+                0.00    0.00       1/199         whileStatement <cycle 2> [38]
+                0.00    0.00       6/199         emitJump [80]
+                0.00    0.00      18/199         patchJump [82]
+                0.00    0.00      23/199         makeConstant [18]
+                0.00    0.00     150/199         emitByte [49]
+[47]     0.0    0.00    0.00     199         currentChunk [47]
+-----------------------------------------------
+                0.00    0.00      39/164         number [72]
+                0.00    0.00      47/164         identifier [60]
+                0.00    0.00      78/164         scanToken [55]
+[48]     0.0    0.00    0.00     164         isDigit [48]
+-----------------------------------------------
+                0.00    0.00       1/150         and_ <cycle 1> [105]
+                0.00    0.00       1/150         returnStatement [37]
+                0.00    0.00       2/150         printStatement [34]
+                0.00    0.00       2/150         whileStatement <cycle 2> [38]
+                0.00    0.00       3/150         emitLoop [106]
+                0.00    0.00       4/150         emitReturn [96]
+                0.00    0.00       4/150         ifStatement <cycle 2> [33]
+                0.00    0.00       6/150         expressionStatement [27]
+                0.00    0.00      15/150         binary <cycle 1> [68]
+                0.00    0.00      18/150         emitJump [80]
+                0.00    0.00      94/150         emitBytes [59]
+[49]     0.0    0.00    0.00     150         emitByte [49]
+                0.00    0.00     150/199         currentChunk [47]
+                0.00    0.00     150/150         writeChunk [50]
+-----------------------------------------------
+                0.00    0.00     150/150         emitByte [49]
+[50]     0.0    0.00    0.00     150         writeChunk [50]
+                0.00    0.00      12/62          reallocate [57]
+-----------------------------------------------
+                0.00    0.00       1/143         peekNext [111]
+                0.00    0.00      15/143         match [69]
+                0.00    0.00     127/143         scanToken [55]
+[51]     0.0    0.00    0.00     143         isAtEnd [51]
+-----------------------------------------------
+                0.00    0.00      15/133         binary <cycle 1> [68]
+                0.00    0.00     118/133         parsePrecedence <cycle 1> [20]
+[52]     0.0    0.00    0.00     133         getRule [52]
+-----------------------------------------------
+                0.00    0.00       1/127         compile [15]
+                0.00    0.00      29/127         match [46]
+                0.00    0.00      38/127         consume [62]
+                0.00    0.00      59/127         parsePrecedence <cycle 1> [20]
+[53]     0.0    0.00    0.00     127         advance [53]
+                0.00    0.00     127/127         scanToken [55]
+-----------------------------------------------
+                0.00    0.00      14/127         number [72]
+                0.00    0.00      47/127         identifier [60]
+                0.00    0.00      66/127         scanToken [55]
+[54]     0.0    0.00    0.00     127         makeToken [54]
+-----------------------------------------------
+                0.00    0.00     127/127         advance [53]
+[55]     0.0    0.00    0.00     127         scanToken [55]
+                0.00    0.00     127/127         skipWhitespace [56]
+                0.00    0.00     127/143         isAtEnd [51]
+                0.00    0.00     125/484         advance [43]
+                0.00    0.00     125/314         isAlpha [44]
+                0.00    0.00      78/164         isDigit [48]
+                0.00    0.00      66/127         makeToken [54]
+                0.00    0.00      47/47          identifier [60]
+                0.00    0.00      15/15          match [69]
+                0.00    0.00      14/14          number [72]
+-----------------------------------------------
+                0.00    0.00     127/127         scanToken [55]
+[56]     0.0    0.00    0.00     127         skipWhitespace [56]
+                0.00    0.00     319/608         peek [42]
+                0.00    0.00     192/484         advance [43]
+                0.00    0.00       1/1           peekNext [111]
+-----------------------------------------------
+                0.00    0.00       2/62          newClosure [101]
+                0.00    0.00       2/62          freeTable [99]
+                0.00    0.00       2/62          freeValueArray [100]
+                0.00    0.00       4/62          freeChunk [98]
+                0.00    0.00       4/62          adjustCapacity [94]
+                0.00    0.00       4/62          writeValueArray [67]
+                0.00    0.00       5/62          copyString [29]
+                0.00    0.00      10/62          allocateObject [75]
+                0.00    0.00      12/62          writeChunk [50]
+                0.00    0.00      17/62          freeObject [76]
+[57]     0.0    0.00    0.00      62         reallocate [57]
+-----------------------------------------------
+                0.00    0.00       6/52          declareVariable [78]
+                0.00    0.00      46/52          resolveLocal [64]
+[58]     0.0    0.00    0.00      52         identifiersEqual [58]
+-----------------------------------------------
+                0.00    0.00       1/47          function <cycle 2> [36]
+                0.00    0.00       3/47          call <cycle 1> [93]
+                0.00    0.00       3/47          defineVariable [79]
+                0.00    0.00      14/47          emitConstant [21]
+                0.00    0.00      26/47          namedVariable <cycle 1> [28]
+[59]     0.0    0.00    0.00      47         emitBytes [59]
+                0.00    0.00      94/150         emitByte [49]
+-----------------------------------------------
+                0.00    0.00      47/47          scanToken [55]
+[60]     0.0    0.00    0.00      47         identifier [60]
+                0.00    0.00     236/608         peek [42]
+                0.00    0.00     189/314         isAlpha [44]
+                0.00    0.00     142/484         advance [43]
+                0.00    0.00      47/164         isDigit [48]
+                0.00    0.00      47/47          identifierType [61]
+                0.00    0.00      47/127         makeToken [54]
+-----------------------------------------------
+                0.00    0.00      47/47          identifier [60]
+[61]     0.0    0.00    0.00      47         identifierType [61]
+                0.00    0.00      26/26          checkKeyword [63]
+-----------------------------------------------
+                0.00    0.00       1/38          returnStatement [37]
+                0.00    0.00       2/38          printStatement [34]
+                0.00    0.00       2/38          whileStatement <cycle 2> [38]
+                0.00    0.00       3/38          argumentList <cycle 1> [92]
+                0.00    0.00       3/38          function <cycle 2> [36]
+                0.00    0.00       4/38          ifStatement <cycle 2> [33]
+                0.00    0.00       5/38          block <cycle 2> [84]
+                0.00    0.00       5/38          varDeclaration [26]
+                0.00    0.00       6/38          expressionStatement [27]
+                0.00    0.00       7/38          parseVariable [31]
+[62]     0.0    0.00    0.00      38         consume [62]
+                0.00    0.00      38/127         advance [53]
+-----------------------------------------------
+                0.00    0.00      26/26          identifierType [61]
+[63]     0.0    0.00    0.00      26         checkKeyword [63]
+-----------------------------------------------
+                0.00    0.00      26/26          namedVariable <cycle 1> [28]
+[64]     0.0    0.00    0.00      26         resolveLocal [64]
+                0.00    0.00      46/52          identifiersEqual [58]
+-----------------------------------------------
+                                  26             parsePrecedence <cycle 1> [20]
+[65]     0.0    0.00    0.00      26         variable <cycle 1> [65]
+                                  26             namedVariable <cycle 1> [28]
+-----------------------------------------------
+                                   1             argumentList <cycle 1> [92]
+                                   6             namedVariable <cycle 1> [28]
+                0.00    0.00       1/17          returnStatement [37]
+                0.00    0.00       1/17          whileStatement <cycle 2> [38]
+                0.00    0.00       2/17          ifStatement <cycle 2> [33]
+                0.00    0.00       2/17          printStatement [34]
+                0.00    0.00       5/17          varDeclaration [26]
+                0.00    0.00       6/17          expressionStatement [27]
+[66]     0.0    0.00    0.00      24         expression <cycle 1> [66]
+                                  24             parsePrecedence <cycle 1> [20]
+-----------------------------------------------
+                0.00    0.00      23/23          addConstant [17]
+[67]     0.0    0.00    0.00      23         writeValueArray [67]
+                0.00    0.00       4/62          reallocate [57]
+-----------------------------------------------
+                                  15             parsePrecedence <cycle 1> [20]
+[68]     0.0    0.00    0.00      15         binary <cycle 1> [68]
+                0.00    0.00      15/133         getRule [52]
+                0.00    0.00      15/150         emitByte [49]
+                                  15             parsePrecedence <cycle 1> [20]
+-----------------------------------------------
+                0.00    0.00      15/15          scanToken [55]
+[69]     0.0    0.00    0.00      15         match [69]
+                0.00    0.00      15/143         isAtEnd [51]
+-----------------------------------------------
+                0.00    0.00       5/14          tableGet [87]
+                0.00    0.00       9/14          tableSet [77]
+[70]     0.0    0.00    0.00      14         findEntry [70]
+-----------------------------------------------
+                0.00    0.00      14/14          number [22]
+[71]     0.0    0.00    0.00      14         numToValue [71]
+-----------------------------------------------
+                0.00    0.00      14/14          scanToken [55]
+[72]     0.0    0.00    0.00      14         number [72]
+                0.00    0.00      53/608         peek [42]
+                0.00    0.00      39/164         isDigit [48]
+                0.00    0.00      25/484         advance [43]
+                0.00    0.00      14/127         makeToken [54]
+-----------------------------------------------
+                0.00    0.00      11/11          copyString [29]
+[73]     0.0    0.00    0.00      11         hashString [73]
+-----------------------------------------------
+                0.00    0.00      11/11          copyString [29]
+[74]     0.0    0.00    0.00      11         tableFindString [74]
+-----------------------------------------------
+                0.00    0.00       1/10          newNative [110]
+                0.00    0.00       2/10          newFunction [102]
+                0.00    0.00       2/10          newClosure [101]
+                0.00    0.00       5/10          allocateString [30]
+[75]     0.0    0.00    0.00      10         allocateObject [75]
+                0.00    0.00      10/62          reallocate [57]
+-----------------------------------------------
+                0.00    0.00      10/10          freeObjects [107]
+[76]     0.0    0.00    0.00      10         freeObject [76]
+                0.00    0.00      17/62          reallocate [57]
+                0.00    0.00       2/2           freeChunk [98]
+-----------------------------------------------
+                0.00    0.00       1/9           defineNative [35]
+                0.00    0.00       3/9           run [4]
+                0.00    0.00       5/9           allocateString [30]
+[77]     0.0    0.00    0.00       9         tableSet [77]
+                0.00    0.00       9/14          findEntry [70]
+                0.00    0.00       2/2           adjustCapacity [94]
+-----------------------------------------------
+                0.00    0.00       7/7           parseVariable [31]
+[78]     0.0    0.00    0.00       7         declareVariable [78]
+                0.00    0.00       6/52          identifiersEqual [58]
+                0.00    0.00       4/4           addLocal [88]
+-----------------------------------------------
+                0.00    0.00       1/7           function <cycle 2> [36]
+                0.00    0.00       1/7           funDeclaration <cycle 2> [40]
+                0.00    0.00       5/7           varDeclaration [26]
+[79]     0.0    0.00    0.00       7         defineVariable [79]
+                0.00    0.00       4/5           markInitialized [85]
+                0.00    0.00       3/47          emitBytes [59]
+-----------------------------------------------
+                0.00    0.00       1/6           and_ <cycle 1> [105]
+                0.00    0.00       1/6           whileStatement <cycle 2> [38]
+                0.00    0.00       4/6           ifStatement <cycle 2> [33]
+[80]     0.0    0.00    0.00       6         emitJump [80]
+                0.00    0.00      18/150         emitByte [49]
+                0.00    0.00       6/199         currentChunk [47]
+-----------------------------------------------
+                0.00    0.00       2/6           freeValueArray [100]
+                0.00    0.00       4/6           initChunk [90]
+[81]     0.0    0.00    0.00       6         initValueArray [81]
+-----------------------------------------------
+                0.00    0.00       1/6           and_ <cycle 1> [105]
+                0.00    0.00       1/6           whileStatement <cycle 2> [38]
+                0.00    0.00       4/6           ifStatement <cycle 2> [33]
+[82]     0.0    0.00    0.00       6         patchJump [82]
+                0.00    0.00      18/199         currentChunk [47]
+-----------------------------------------------
+                0.00    0.00       1/5           function <cycle 2> [36]
+                0.00    0.00       4/5           statement <cycle 2> [24]
+[83]     0.0    0.00    0.00       5         beginScope [83]
+-----------------------------------------------
+                                   1             function <cycle 2> [36]
+                                   4             statement <cycle 2> [24]
+[84]     0.0    0.00    0.00       5         block <cycle 2> [84]
+                0.00    0.00      31/249         check [45]
+                0.00    0.00       5/38          consume [62]
+                                  13             declaration <cycle 2> [25]
+-----------------------------------------------
+                0.00    0.00       1/5           funDeclaration <cycle 2> [40]
+                0.00    0.00       4/5           defineVariable [79]
+[85]     0.0    0.00    0.00       5         markInitialized [85]
+-----------------------------------------------
+                0.00    0.00       5/5           namedVariable <cycle 1> [28]
+[86]     0.0    0.00    0.00       5         resolveUpvalue [86]
+-----------------------------------------------
+                0.00    0.00       5/5           run [4]
+[87]     0.0    0.00    0.00       5         tableGet [87]
+                0.00    0.00       5/14          findEntry [70]
+-----------------------------------------------
+                0.00    0.00       4/4           declareVariable [78]
+[88]     0.0    0.00    0.00       4         addLocal [88]
+-----------------------------------------------
+                0.00    0.00       4/4           statement <cycle 2> [24]
+[89]     0.0    0.00    0.00       4         endScope [89]
+-----------------------------------------------
+                0.00    0.00       2/4           freeChunk [98]
+                0.00    0.00       2/4           newFunction [102]
+[90]     0.0    0.00    0.00       4         initChunk [90]
+                0.00    0.00       4/6           initValueArray [81]
+-----------------------------------------------
+                0.00    0.00       2/4           freeTable [99]
+                0.00    0.00       2/4           initVM [32]
+[91]     0.0    0.00    0.00       4         initTable [91]
+-----------------------------------------------
+                                   3             call <cycle 1> [93]
+[92]     0.0    0.00    0.00       3         argumentList <cycle 1> [92]
+                0.00    0.00       3/249         check [45]
+                0.00    0.00       3/38          consume [62]
+                0.00    0.00       1/214         match [46]
+                                   1             expression <cycle 1> [66]
+-----------------------------------------------
+                                   3             parsePrecedence <cycle 1> [20]
+[93]     0.0    0.00    0.00       3         call <cycle 1> [93]
+                0.00    0.00       3/47          emitBytes [59]
+                                   3             argumentList <cycle 1> [92]
+-----------------------------------------------
+                0.00    0.00       2/2           tableSet [77]
+[94]     0.0    0.00    0.00       2         adjustCapacity [94]
+                0.00    0.00       4/62          reallocate [57]
+-----------------------------------------------
+                0.00    0.00       2/2           run [4]
+[95]     0.0    0.00    0.00       2         closeUpvalues [95]
+-----------------------------------------------
+                0.00    0.00       2/2           endCompiler [97]
+[96]     0.0    0.00    0.00       2         emitReturn [96]
+                0.00    0.00       4/150         emitByte [49]
+-----------------------------------------------
+                0.00    0.00       1/2           function <cycle 2> [36]
+                0.00    0.00       1/2           compile [15]
+[97]     0.0    0.00    0.00       2         endCompiler [97]
+                0.00    0.00       2/2           emitReturn [96]
+-----------------------------------------------
+                0.00    0.00       2/2           freeObject [76]
+[98]     0.0    0.00    0.00       2         freeChunk [98]
+                0.00    0.00       4/62          reallocate [57]
+                0.00    0.00       2/2           freeValueArray [100]
+                0.00    0.00       2/4           initChunk [90]
+-----------------------------------------------
+                0.00    0.00       2/2           freeVM [108]
+[99]     0.0    0.00    0.00       2         freeTable [99]
+                0.00    0.00       2/62          reallocate [57]
+                0.00    0.00       2/4           initTable [91]
+-----------------------------------------------
+                0.00    0.00       2/2           freeChunk [98]
+[100]    0.0    0.00    0.00       2         freeValueArray [100]
+                0.00    0.00       2/62          reallocate [57]
+                0.00    0.00       2/6           initValueArray [81]
+-----------------------------------------------
+                0.00    0.00       1/2           run [4]
+                0.00    0.00       1/2           interpret [2]
+[101]    0.0    0.00    0.00       2         newClosure [101]
+                0.00    0.00       2/62          reallocate [57]
+                0.00    0.00       2/10          allocateObject [75]
+-----------------------------------------------
+                0.00    0.00       2/2           initCompiler [41]
+[102]    0.0    0.00    0.00       2         newFunction [102]
+                0.00    0.00       2/10          allocateObject [75]
+                0.00    0.00       2/4           initChunk [90]
+-----------------------------------------------
+                0.00    0.00       2/2           run [4]
+[103]    0.0    0.00    0.00       2         printValue [103]
+                0.00    0.00       2/2           valueToNum [104]
+-----------------------------------------------
+                0.00    0.00       2/2           printValue [103]
+[104]    0.0    0.00    0.00       2         valueToNum [104]
+-----------------------------------------------
+                                   1             parsePrecedence <cycle 1> [20]
+[105]    0.0    0.00    0.00       1         and_ <cycle 1> [105]
+                0.00    0.00       1/6           emitJump [80]
+                0.00    0.00       1/150         emitByte [49]
+                0.00    0.00       1/6           patchJump [82]
+                                   1             parsePrecedence <cycle 1> [20]
+-----------------------------------------------
+                0.00    0.00       1/1           whileStatement <cycle 2> [38]
+[106]    0.0    0.00    0.00       1         emitLoop [106]
+                0.00    0.00       3/150         emitByte [49]
+                0.00    0.00       1/199         currentChunk [47]
+-----------------------------------------------
+                0.00    0.00       1/1           freeVM [108]
+[107]    0.0    0.00    0.00       1         freeObjects [107]
+                0.00    0.00      10/10          freeObject [76]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[108]    0.0    0.00    0.00       1         freeVM [108]
+                0.00    0.00       2/2           freeTable [99]
+                0.00    0.00       1/1           freeObjects [107]
+-----------------------------------------------
+                0.00    0.00       1/1           compile [15]
+[109]    0.0    0.00    0.00       1         initScanner [109]
+-----------------------------------------------
+                0.00    0.00       1/1           defineNative [35]
+[110]    0.0    0.00    0.00       1         newNative [110]
+                0.00    0.00       1/10          allocateObject [75]
+-----------------------------------------------
+                0.00    0.00       1/1           skipWhitespace [56]
+[111]    0.0    0.00    0.00       1         peekNext [111]
+                0.00    0.00       1/143         isAtEnd [51]
+-----------------------------------------------
+                0.00    0.00       1/1           runFile [3]
+[112]    0.0    0.00    0.00       1         readFile [112]
+-----------------------------------------------
+                0.00    0.00       1/1           initVM [32]
+[113]    0.0    0.00    0.00       1         resetStack [113]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2024 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [17] addConstant            [70] findEntry (table.c)     [9] numToValue (vm.c)
+  [88] addLocal (compiler.c)  [98] freeChunk              [22] number (compiler.c)
+  [94] adjustCapacity (table.c) [76] freeObject (memory.c) [72] number (scanner.c)
+  [53] advance (compiler.c)  [107] freeObjects            [20] parsePrecedence (compiler.c)
+  [43] advance (scanner.c)    [99] freeTable              [31] parseVariable (compiler.c)
+  [75] allocateObject (object.c) [108] freeVM             [82] patchJump (compiler.c)
+  [30] allocateString (object.c) [100] freeValueArray     [42] peek (scanner.c)
+ [105] and_ (compiler.c)      [40] funDeclaration (compiler.c) [6] peek (vm.c)
+  [92] argumentList (compiler.c) [36] function (compiler.c) [111] peekNext (scanner.c)
+  [83] beginScope (compiler.c) [52] getRule (compiler.c)   [7] pop
+  [68] binary (compiler.c)    [73] hashString (object.c)  [34] printStatement (compiler.c)
+  [84] block (compiler.c)     [60] identifier (scanner.c) [103] printValue
+  [93] call (compiler.c)      [23] identifierConstant (compiler.c) [5] push
+  [12] call (vm.c)            [61] identifierType (scanner.c) [112] readFile (main.c)
+  [13] callValue (vm.c)       [58] identifiersEqual (compiler.c) [57] reallocate
+  [45] check (compiler.c)     [33] ifStatement (compiler.c) [113] resetStack (vm.c)
+  [63] checkKeyword (scanner.c) [90] initChunk            [64] resolveLocal (compiler.c)
+  [39] clockNative (vm.c)     [41] initCompiler (compiler.c) [86] resolveUpvalue (compiler.c)
+  [95] closeUpvalues (vm.c)  [109] initScanner            [37] returnStatement (compiler.c)
+  [15] compile                [91] initTable               [4] run (vm.c)
+  [14] concatenate (vm.c)     [32] initVM                  [3] runFile (main.c)
+  [62] consume (compiler.c)   [81] initValueArray         [55] scanToken
+  [29] copyString              [2] interpret              [56] skipWhitespace (scanner.c)
+  [47] currentChunk (compiler.c) [44] isAlpha (scanner.c) [24] statement (compiler.c)
+  [25] declaration (compiler.c) [51] isAtEnd (scanner.c)  [74] tableFindString
+  [78] declareVariable (compiler.c) [48] isDigit (scanner.c) [87] tableGet
+  [35] defineNative (vm.c)    [11] isFalsey (vm.c)        [77] tableSet
+  [79] defineVariable (compiler.c) [10] isObjType (object.h) [104] valueToNum (value.c)
+  [49] emitByte (compiler.c)  [18] makeConstant (compiler.c) [8] valueToNum (vm.c)
+  [59] emitBytes (compiler.c) [54] makeToken (scanner.c)  [26] varDeclaration (compiler.c)
+  [21] emitConstant (compiler.c) [85] markInitialized (compiler.c) [65] variable (compiler.c)
+  [80] emitJump (compiler.c)  [46] match (compiler.c)     [38] whileStatement (compiler.c)
+ [106] emitLoop (compiler.c)  [69] match (scanner.c)      [50] writeChunk
+  [96] emitReturn (compiler.c) [28] namedVariable (compiler.c) [67] writeValueArray
+  [97] endCompiler (compiler.c) [101] newClosure          [19] <cycle 1>
+  [89] endScope (compiler.c) [102] newFunction            [16] <cycle 2>
+  [66] expression (compiler.c) [110] newNative
+  [27] expressionStatement (compiler.c) [71] numToValue (compiler.c)
