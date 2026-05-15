@@ -1,0 +1,28 @@
+fun run(limit) {
+  var i = 0;
+  var total = 0;
+  var left = "a";
+  var right = "b";
+
+  while (i < limit) {
+    var pair = left + right;
+
+    if (pair == "ab") {
+      total = total + 1;
+      left = "a";
+      right = "b";
+    } else {
+      total = total + 2;
+      left = "b";
+      right = "a";
+    }
+
+    i = i + 1;
+  }
+
+  return total;
+}
+
+var start = clock();
+print run(10000000);
+print clock() - start;
