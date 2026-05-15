@@ -1,0 +1,9 @@
+#!/bin/bash
+
+javac com/craftinginterpreters/lox/Lox.java
+if [ $? -eq 0 ]
+then
+	echo "Compiling Done!"
+else
+	echo "Compilation Failed"
+fi

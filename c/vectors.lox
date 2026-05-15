@@ -1,0 +1,32 @@
+fun makeVector(x, y) {
+  // Encode x and y into a single number
+  return x * 1000000 + y;
+}
+
+fun vecX(vec) {
+  return vec / 1000000;
+}
+
+fun vecY(vec) {
+  return vec - (vec / 1000000) * 1000000;
+}
+
+fun addVectors(a, b) {
+  return makeVector(
+    vecX(a) + vecX(b),
+    vecY(a) + vecY(b)
+  );
+}
+
+// Test
+var a = makeVector(1, 2);
+var b = makeVector(3, 4);
+
+print vecX(a); // 1
+print vecY(a); // 2
+print vecX(b); // 3
+print vecY(b); // 4
+
+var c = addVectors(a, b);
+print vecX(c); // 4
+print vecY(c); // 6

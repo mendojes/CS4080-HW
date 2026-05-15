@@ -1,0 +1,10 @@
+#!/bin/bash
+
+javac com/craftinginterpreters/tool/GenerateAst.java
+if [ $? -eq 0 ]
+then
+	echo "Compiling Done! Running file!"
+	java com.craftinginterpreters.tool.GenerateAst com/craftinginterpreters/lox/
+else
+	echo "Compilation Failed"
+fi
